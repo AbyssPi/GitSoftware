@@ -1,15 +1,23 @@
 
+"use client";
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { SIDEBAR_CATEGORIES } from '../shared/constants/mock-data';
+
 interface NavbarProps {
     variant?: 'default' | 'minimal';
 }
 
 export default function Navbar({ variant = 'default' }: NavbarProps) {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
     return (
-        <nav className="border-b border-gray-100 bg-white">
+        <nav className="border-b border-gray-100 bg-white relative z-50">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Left: Logo */}
                 <div className="flex items-center">
-                    <a href="#" className="flex items-center gap-2">
+                    <Link href="/" className="flex items-center gap-2">
                         <svg
                             className="h-8 w-8 text-black"
                             fill="currentColor"
@@ -20,18 +28,44 @@ export default function Navbar({ variant = 'default' }: NavbarProps) {
                         <span className="text-xl font-bold tracking-tight text-gray-900">
                             Craftstore
                         </span>
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Center: Navigation Links */}
                 {variant === 'default' && (
                     <div className="hidden space-x-8 md:flex">
-                        <a
-                            href="#"
-                            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+                        <div
+                            className="relative group"
+                            onMouseEnter={() => setIsDropdownOpen(true)}
+                            onMouseLeave={() => setIsDropdownOpen(false)}
                         >
-                            Products
-                        </a>
+                            <button
+                                className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors py-2"
+                            >
+                                Products
+                                <svg className="ml-1 h-4 w-4 text-gray-400 group-hover:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            <div
+                                className={`absolute left-1/2 -translate-x-1/2 top-full mt-1 w-56 rounded-xl bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-out ${isDropdownOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'
+                                    }`}
+                            >
+                                <div className="py-2">
+                                    {SIDEBAR_CATEGORIES.map((category) => (
+                                        <Link
+                                            key={category.slug}
+                                            href={`/categories/${category.slug}`}
+                                            className="block px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
 
@@ -42,12 +76,12 @@ export default function Navbar({ variant = 'default' }: NavbarProps) {
                             Open a shop
                         </button>
                     )}
-                    <a
+                    <Link
                         href="#"
                         className="rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
                     >
                         Contact Us
-                    </a>
+                    </Link>
                 </div>
             </div>
         </nav>

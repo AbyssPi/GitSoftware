@@ -1,4 +1,5 @@
 
+import Link from 'next/link';
 import { CATEGORIES } from '../shared/constants/mock-data';
 
 export default function Categories() {
@@ -11,9 +12,10 @@ export default function Categories() {
 
                 <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {CATEGORIES.map((category) => (
-                        <div
+                        <Link
                             key={category.id}
-                            className="group relative flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-5 hover:border-gray-200 hover:shadow-sm transition-all cursor-pointer"
+                            href={`/categories/${category.slug}`}
+                            className="group relative flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-5 hover:border-gray-200 hover:shadow-sm hover:scale-[1.02] transition-all cursor-pointer"
                         >
                             {/* Icon Container */}
                             <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gray-50 text-gray-900 group-hover:bg-gray-100 transition-colors">
@@ -41,31 +43,11 @@ export default function Categories() {
                                     {category.subtitle}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
-                <div className="mt-12 flex justify-end">
-                    <a
-                        href="#"
-                        className="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-                    >
-                        See all resources
-                        <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 5l7 7-7 7"
-                            />
-                        </svg>
-                    </a>
-                </div>
+
             </div>
         </section>
     );
