@@ -4,18 +4,20 @@ A full-stack application scaffold with structured AI generation policies.
 
 ## Structure
 
-| Directory       | Purpose                                      |
-|-----------------|----------------------------------------------|
-| `system/`       | Architecture docs & policies (never touched by features) |
-| `directives/`   | Feature specifications (WHAT to build)       |
-| `contracts/`    | Structural guarantees for code quality       |
-| `app/`          | Production application code                  |
-| `runtime/`      | Scripts, migrations, and seed data           |
-| `.generated/`   | Raw AI output (never trusted directly)       |
-| `.staging/`     | Cleaned & validated AI output                |
-| `.snapshots/`   | Versioned generation states                  |
-| `.tmp/`         | Disposable temporary files                   |
-| `logs/`         | Application logs                             |
+| Directory        | Purpose                                      |
+|------------------|----------------------------------------------|
+| `system/`        | Architecture docs & policies (never touched by features) |
+| `directives/`    | Feature specifications (WHAT to build)       |
+| `orchestration/` | Decision layer — routes tasks, logs decisions |
+| `execution/`     | Deterministic scripts, tools, and automation |
+| `contracts/`     | Structural guarantees for code quality       |
+| `app/`           | Production application code                  |
+| `runtime/`       | Scripts, migrations, and seed data           |
+| `.generated/`    | Raw AI output (never trusted directly)       |
+| `.staging/`      | Cleaned & validated AI output                |
+| `.snapshots/`    | Versioned generation states                  |
+| `.tmp/`          | Disposable temporary files                   |
+| `logs/`          | Application logs                             |
 
 ## Getting Started
 
