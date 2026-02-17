@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Product } from '../shared/constants/mock-data';
 
 interface ProductCardProps {
@@ -6,7 +7,10 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
     return (
-        <div className="group cursor-pointer">
+        <Link
+            href={`/product/${product.slug}`}
+            className="group cursor-pointer block"
+        >
             <div className="aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100 mb-3">
                 <img
                     src={product.image}
@@ -20,6 +24,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 </h3>
                 <p className="text-sm font-medium text-gray-500">{product.price}</p>
             </div>
-        </div>
+        </Link>
     );
 }
