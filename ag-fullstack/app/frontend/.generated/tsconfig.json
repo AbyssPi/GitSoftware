@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "sanity": [
+                "../web files/ag-fullstack/app/frontend/node_modules/sanity"
+            ],
+            "sanity/structure": [
+                "../web files/ag-fullstack/app/frontend/node_modules/sanity/lib/structure.d.ts"
+            ],
+            "next-sanity": [
+                "../web files/ag-fullstack/app/frontend/node_modules/next-sanity"
+            ],
+            "next-sanity/studio": [
+                "../web files/ag-fullstack/app/frontend/node_modules/next-sanity/dist/studio"
+            ],
+            "@sanity/image-url": [
+                "../web files/ag-fullstack/app/frontend/node_modules/@sanity/image-url"
+            ]
+        },
+        "typeRoots": [
+            "../web files/ag-fullstack/app/frontend/node_modules/@types"
+        ]
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ]
+}
