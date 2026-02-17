@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import ProductCard from '../../../components/ProductCard';
 import { client } from '../../../sanity/client';
 import {
@@ -5,14 +7,44 @@ import {
     getProductsQuery,
     getProductsByCategoryQuery,
 } from '../../../sanity/queries';
-import { notFound } from 'next/navigation';
 import type { SanityCategory, SanityProduct } from '../../../shared/types/sanity';
 
-export default async function CategoryPage({
-    params,
-}: {
+type Props = {
     params: Promise<{ slug: string }>;
-}) {
+};
+
+// 1. Generate Metadata (Server Side)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+
+    let title = 'Category';
+    let description = 'Browse our products.';
+
+    if (slug === 'all-products') {
+        title = 'All Products';
+        description = 'Browse our complete collection of high-quality digital resources.';
+    } else {
+        const categories: SanityCategory[] = await client.fetch(getCategoriesQuery);
+        const category = categories.find((c) => c.slug.current === slug);
+
+        if (category) {
+            title = category.title;
+            description = category.description || description;
+        }
+    }
+
+    return {
+        title: title,
+        description: description,
+        openGraph: {
+            title: title,
+            description: description,
+        },
+    };
+}
+
+
+export default async function CategoryPage({ params }: Props) {
     const { slug } = await params;
 
     // Handle "all-products" virtual category

@@ -1,38 +1,51 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import { use } from 'react';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import { client } from '../../../sanity/client';
 import { urlFor } from '../../../sanity/image';
 import { getProductBySlugQuery } from '../../../sanity/queries';
 import type { SanityProduct } from '../../../shared/types/sanity';
+import ProductClient from './ProductClient';
 
-const SELLER_WHATSAPP_NUMBER = '962790000000'; // Replace with actual number
+type Props = {
+    params: Promise<{ slug: string }>;
+};
 
-export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = use(params);
-    const [product, setProduct] = useState<SanityProduct | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [selectedVersion, setSelectedVersion] = useState<string>('');
+// 1. Generate Metadata (Server Side)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const product: SanityProduct | null = await client.fetch(getProductBySlugQuery, { slug });
 
-    useEffect(() => {
-        client.fetch(getProductBySlugQuery, { slug }).then((data: SanityProduct | null) => {
-            setProduct(data);
-            setSelectedVersion(data?.versions?.[0] ?? '');
-            setLoading(false);
-        });
-    }, [slug]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-white flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-gray-500">Loading product...</p>
-                </div>
-            </div>
-        );
+    if (!product) {
+        return {
+            title: 'Product Not Found',
+        };
     }
+
+    const title = product.title;
+    const description = product.fullDescription
+        ? product.fullDescription.substring(0, 160) // Truncate for SEO
+        : `Buy ${product.title} online.`;
+
+    const imageUrl = product.image
+        ? urlFor(product.image).width(1200).height(630).url()
+        : null;
+
+    return {
+        title: title,
+        description: description,
+        openGraph: {
+            title: title,
+            description: description,
+            images: imageUrl ? [imageUrl] : [],
+        },
+    };
+}
+
+// 2. Server Component Page
+export default async function ProductPage({ params }: Props) {
+    const { slug } = await params;
+    const product: SanityProduct | null = await client.fetch(getProductBySlugQuery, { slug });
 
     if (!product) {
         return (
@@ -45,92 +58,11 @@ export default function ProductPage({ params }: { params: Promise<{ slug: string
         );
     }
 
-    const imageUrl = product.image
-        ? urlFor(product.image).width(800).height(600).url()
-        : 'https://placehold.co/800x600/eeeeee/999999?text=No+Image';
-
-    const handleWhatsAppCheckout = () => {
-        const message = `Hello! I would like to purchase *${product.title}* (Version: *${selectedVersion}*). Can I pay using CliQ?`;
-        const encodedMessage = encodeURIComponent(message);
-        const url = `https://wa.me/${SELLER_WHATSAPP_NUMBER}?text=${encodedMessage}`;
-        window.open(url, '_blank');
-    };
-
     return (
         <div className="bg-white min-h-screen">
             <Navbar variant="minimal" />
-            {/* Main Content */}
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2">
-                    {/* Left Column: Image */}
-                    <div className="relative overflow-hidden rounded-xl bg-gray-100 p-8 sm:p-12 h-fit">
-                        <img
-                            src={imageUrl}
-                            alt={product.title}
-                            className="h-full w-full object-cover object-center rounded-lg shadow-sm"
-                        />
-                    </div>
-
-                    {/* Right Column: Product Details */}
-                    <div className="flex flex-col">
-                        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                            {product.title}
-                        </h1>
-
-                        <div className="mt-4 flex items-end">
-                            <p className="text-2xl font-medium text-gray-900">
-                                {product.price}
-                            </p>
-                        </div>
-
-                        {/* Description */}
-                        {product.fullDescription && (
-                            <div className="mt-6 space-y-4">
-                                <p className="text-base text-gray-600 leading-relaxed">
-                                    {product.fullDescription}
-                                </p>
-                            </div>
-                        )}
-
-                        {/* Versions / Options */}
-                        {product.versions && product.versions.length > 0 && (
-                            <div className="mt-8">
-                                <div className="flex items-center justify-between">
-                                    <h3 className="text-base font-medium text-gray-900">Select Version</h3>
-                                </div>
-
-                                <div className="mt-4 grid grid-cols-2 gap-4">
-                                    {product.versions.map((version) => (
-                                        <div
-                                            key={version}
-                                            onClick={() => setSelectedVersion(version)}
-                                            className={`cursor-pointer rounded-lg border px-6 py-4 text-center text-sm font-medium shadow-sm transition-all ${selectedVersion === version
-                                                ? 'border-black bg-black text-white ring-1 ring-black'
-                                                : 'border-gray-200 bg-white text-gray-900 hover:border-black hover:ring-1 hover:ring-black'
-                                                }`}
-                                        >
-                                            {version}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Actions */}
-                        <div className="mt-10 flex w-full flex-col gap-4">
-                            <button
-                                onClick={handleWhatsAppCheckout}
-                                className="flex w-full items-center justify-center rounded-full bg-black px-8 py-4 text-base font-medium text-white hover:bg-gray-800 transition-colors"
-                            >
-                                Buy Now Using CliQ
-                            </button>
-                        </div>
-
-                        <div className="mt-6 flex justify-center text-sm text-gray-500">
-                            <p>Instant Digital Download • Secure Checkout</p>
-                        </div>
-                    </div>
-                </div>
+                <ProductClient product={product} />
             </div>
         </div>
     );
