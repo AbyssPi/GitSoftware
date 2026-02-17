@@ -1,5 +1,9 @@
 
-export default function Navbar() {
+interface NavbarProps {
+    variant?: 'default' | 'minimal';
+}
+
+export default function Navbar({ variant = 'default' }: NavbarProps) {
     return (
         <nav className="border-b border-gray-100 bg-white">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -20,20 +24,24 @@ export default function Navbar() {
                 </div>
 
                 {/* Center: Navigation Links */}
-                <div className="hidden space-x-8 md:flex">
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-                    >
-                        Products
-                    </a>
-                </div>
+                {variant === 'default' && (
+                    <div className="hidden space-x-8 md:flex">
+                        <a
+                            href="#"
+                            className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+                        >
+                            Products
+                        </a>
+                    </div>
+                )}
 
                 {/* Right: Contact Us Button */}
                 <div className="flex items-center gap-4">
-                    <button className="hidden text-sm font-medium text-gray-500 hover:text-gray-900 sm:block">
-                        Open a shop
-                    </button>
+                    {variant === 'default' && (
+                        <button className="hidden text-sm font-medium text-gray-500 hover:text-gray-900 sm:block">
+                            Open a shop
+                        </button>
+                    )}
                     <a
                         href="#"
                         className="rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
