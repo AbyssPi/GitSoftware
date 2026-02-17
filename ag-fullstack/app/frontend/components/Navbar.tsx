@@ -25,32 +25,7 @@ export default function Navbar() {
                         href="#"
                         className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
                     >
-                        Resources
-                    </a>
-                    <a
-                        href="#"
-                        className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-                    >
-                        Inspiration
-                    </a>
-                    <a
-                        href="#"
-                        className="flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-600 transition-colors"
-                    >
-                        Studio
-                        <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                        Products
                     </a>
                 </div>
 
