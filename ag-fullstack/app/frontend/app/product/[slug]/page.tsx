@@ -1,9 +1,14 @@
-import { notFound } from 'next/navigation';
+"use client";
+
+import { useState } from 'react';
 import Navbar from '../../../components/Navbar';
 import { MOCK_PRODUCTS } from '../../../shared/constants/mock-data';
+import { use } from 'react';
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await params;
+const SELLER_WHATSAPP_NUMBER = '962790000000'; // Replace with actual number
+
+export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = use(params);
     const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
     if (!product) {
@@ -16,6 +21,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
         );
     }
+
+    const [selectedVersion, setSelectedVersion] = useState<string>(
+        product.versions?.[0] ?? ''
+    );
+
+    const handleWhatsAppCheckout = () => {
+        const message = `Hello! I would like to purchase *${product.title}* (Version: *${selectedVersion}*). Can I pay using CliQ?`;
+        const encodedMessage = encodeURIComponent(message);
+        const url = `https://wa.me/${SELLER_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+        window.open(url, '_blank');
+    };
 
     return (
         <div className="bg-white min-h-screen">
@@ -64,7 +80,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                                     {product.versions.map((version) => (
                                         <div
                                             key={version}
-                                            className="cursor-pointer rounded-lg border border-gray-200 bg-white px-6 py-4 text-center text-sm font-medium text-gray-900 shadow-sm hover:border-black hover:ring-1 hover:ring-black transition-all"
+                                            onClick={() => setSelectedVersion(version)}
+                                            className={`cursor-pointer rounded-lg border px-6 py-4 text-center text-sm font-medium shadow-sm transition-all ${selectedVersion === version
+                                                    ? 'border-black bg-black text-white ring-1 ring-black'
+                                                    : 'border-gray-200 bg-white text-gray-900 hover:border-black hover:ring-1 hover:ring-black'
+                                                }`}
                                         >
                                             {version}
                                         </div>
@@ -75,7 +95,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
                         {/* Actions */}
                         <div className="mt-10 flex w-full flex-col gap-4">
-                            <button className="flex w-full items-center justify-center rounded-full bg-black px-8 py-4 text-base font-medium text-white hover:bg-gray-800 transition-colors">
+                            <button
+                                onClick={handleWhatsAppCheckout}
+                                className="flex w-full items-center justify-center rounded-full bg-black px-8 py-4 text-base font-medium text-white hover:bg-gray-800 transition-colors"
+                            >
                                 Buy Now Using CliQ
                             </button>
                         </div>
