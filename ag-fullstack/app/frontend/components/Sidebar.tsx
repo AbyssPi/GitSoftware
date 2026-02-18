@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import type { SanityCategory } from '../shared/types/sanity';
+import type { SanityCategory } from '@/shared/types/sanity';
 
 // Fallback icon (grid) for categories
 const FALLBACK_ICON =

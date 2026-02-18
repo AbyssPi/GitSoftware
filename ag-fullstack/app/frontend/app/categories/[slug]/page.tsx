@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import ProductCard from '../../../.generated/components/ProductCard';
-import { client } from '../../../sanity/client';
+import ProductCard from '@/components/ProductCard';
+import { client } from '@/sanity/client';
 import {
     getCategoriesQuery,
     getProductsQuery,
     getProductsByCategoryQuery,
-} from '../../../.generated/sanity/queries';
-import type { SanityCategory, SanityProduct } from '../../../.generated/shared/types/sanity';
+} from '@/sanity/queries';
+import type { SanityCategory, SanityProduct } from '@/shared/types/sanity';
 
 type Props = {
     params: Promise<{ slug: string }>;

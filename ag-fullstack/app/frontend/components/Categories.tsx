@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { SanityCategory } from '../shared/types/sanity';
+import type { SanityCategory } from '@/shared/types/sanity';
 
 // Fallback icon (grid) used when no icon field exists in Sanity
 const FALLBACK_ICON =

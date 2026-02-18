@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import type { SanityCategory } from '../shared/types/sanity';
+import type { SanityCategory } from '@/shared/types/sanity';
 
 interface NavbarProps {
     variant?: 'default' | 'minimal';

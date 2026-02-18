@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { urlFor } from '../sanity/image';
-import type { SanityProduct } from '../shared/types/sanity';
+import { urlFor } from '@/sanity/image';
+import type { SanityProduct } from '@/shared/types/sanity';
 
 interface ProductCardProps {
     product: SanityProduct;
