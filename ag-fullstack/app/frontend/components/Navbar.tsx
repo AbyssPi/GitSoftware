@@ -26,7 +26,7 @@ export default function Navbar({ variant = 'default', categories = [] }: NavbarP
                             <path d="M12 2L2 22h20L12 2zm0 4l6 12H6l6-12z" />
                         </svg>
                         <span className="text-xl font-bold tracking-tight text-gray-900">
-                            Craftstore
+                            GitSoftware
                         </span>
                     </Link>
                 </div>
@@ -54,6 +54,12 @@ export default function Navbar({ variant = 'default', categories = [] }: NavbarP
                                     }`}
                             >
                                 <div className="py-2">
+                                    <Link
+                                        href="/categories/all-products"
+                                        className="block px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50 transition-colors"
+                                    >
+                                        All Products
+                                    </Link>
                                     {categories.map((category) => (
                                         <Link
                                             key={category._id}
@@ -72,9 +78,7 @@ export default function Navbar({ variant = 'default', categories = [] }: NavbarP
                 {/* Right: Contact Us Button */}
                 <div className="flex items-center gap-4">
                     {variant === 'default' && (
-                        <button className="hidden text-sm font-medium text-gray-500 hover:text-gray-900 sm:block">
-                            Open a shop
-                        </button>
+                        null
                     )}
                     <Link
                         href="#"
