@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { urlFor } from '../../../sanity/image';
-import type { SanityProduct } from '../../../shared/types/sanity';
+import { urlFor } from '@/sanity/image';
+import type { SanityProduct } from '@/shared/types/sanity';
 
 const SELLER_WHATSAPP_NUMBER = '962790000000'; // Replace with actual number
 
