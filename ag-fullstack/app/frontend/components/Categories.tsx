@@ -46,9 +46,6 @@ export default function Categories({ categories }: CategoriesProps) {
                                 <h3 className="text-base font-semibold text-gray-900">
                                     {category.title}
                                 </h3>
-                                <p className="mt-0.5 text-sm text-gray-500">
-                                    {category.description || 'Browse products'}
-                                </p>
                             </div>
                         </Link>
                     ))}
