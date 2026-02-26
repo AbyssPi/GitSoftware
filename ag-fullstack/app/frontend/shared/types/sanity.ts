@@ -9,6 +9,11 @@ export interface SanityCategory {
     title: string;
     slug: { current: string };
     description?: string;
+    icon?: {
+        asset: {
+            url: string;
+        };
+    };
 }
 
 export interface SanityProduct {

@@ -5,7 +5,12 @@ export const getCategoriesQuery = `*[_type == "category"] | order(title asc) {
   _id,
   title,
   slug,
-  description
+  description,
+  icon {
+    asset->{
+      url
+    }
+  }
 }`;
 
 /** Fetch every product with its category dereferenced. */

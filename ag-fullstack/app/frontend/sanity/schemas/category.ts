@@ -26,5 +26,13 @@ export default defineType({
             title: "Description",
             type: "text",
         }),
+        defineField({
+            name: "icon",
+            title: "Category Icon",
+            type: "image",
+            options: {
+                hotspot: true,
+            },
+        }),
     ],
 });

@@ -25,20 +25,28 @@ export default function Categories({ categories }: CategoriesProps) {
                             className="group relative flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-5 hover:border-gray-200 hover:shadow-sm hover:scale-[1.02] transition-all cursor-pointer"
                         >
                             {/* Icon Container */}
-                            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gray-50 text-gray-900 group-hover:bg-gray-100 transition-colors">
-                                <svg
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={1.5}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d={FALLBACK_ICON}
+                            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-gray-50 text-gray-900 group-hover:bg-gray-100 transition-colors overflow-hidden">
+                                {category.icon?.asset?.url ? (
+                                    <img
+                                        src={category.icon.asset.url}
+                                        alt={`${category.title} icon`}
+                                        className="h-10 w-10 object-contain"
                                     />
-                                </svg>
+                                ) : (
+                                    <svg
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={1.5}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d={FALLBACK_ICON}
+                                        />
+                                    </svg>
+                                )}
                             </div>
 
                             {/* Text Content */}
