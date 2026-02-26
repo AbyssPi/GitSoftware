@@ -21,12 +21,14 @@ export default function Footer() {
                         >
                             Terms of Service
                         </Link>
-                        <Link
-                            href="/contact"
+                        <a
+                            href="https://wa.me/962770416763?text=Hello,%20I%20have%20an%20inquiry%20about%20GitSoftware."
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
                         >
                             Contact Us
-                        </Link>
+                        </a>
                     </nav>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { urlFor } from '@/sanity/image';
 import type { SanityProduct } from '@/shared/types/sanity';
 
-const SELLER_WHATSAPP_NUMBER = '962790000000'; // Replace with actual number
+const SELLER_WHATSAPP_NUMBER = '962770416763';
 
 interface ProductClientProps {
     product: SanityProduct;
@@ -18,10 +18,10 @@ export default function ProductClient({ product }: ProductClientProps) {
         : 'https://placehold.co/800x600/eeeeee/999999?text=No+Image';
 
     const handleWhatsAppCheckout = () => {
-        const message = `Hello! I would like to purchase *${product.title}* (Version: *${selectedVersion}*). Can I pay using CliQ?`;
+        const message = `Hello, I would like to purchase ${product.title} (Version: ${(product as any).version || selectedVersion}) for ${product.price} JOD.`;
         const encodedMessage = encodeURIComponent(message);
         const url = `https://wa.me/${SELLER_WHATSAPP_NUMBER}?text=${encodedMessage}`;
-        window.open(url, '_blank');
+        window.open(url, '_blank', 'noopener,noreferrer');
     };
 
     return (

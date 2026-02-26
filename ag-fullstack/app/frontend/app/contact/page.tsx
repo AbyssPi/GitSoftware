@@ -2,7 +2,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 const SUPPORT_EMAIL = 'support@yourstore.com'; // Replace with actual email
-const WHATSAPP_NUMBER = '962790000000'; // Replace with actual number
+const WHATSAPP_NUMBER = '962770416763';
 
 export default function ContactPage() {
     return (
@@ -32,7 +32,7 @@ export default function ContactPage() {
                         </a>
 
                         <a
-                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello! I have a question about your store.')}`}
+                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello, I have an inquiry about GitSoftware.')}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center rounded-full bg-black px-8 py-4 text-base font-medium text-white hover:bg-gray-800 transition-colors"
