@@ -46,20 +46,28 @@ export default function Sidebar({ categories }: SidebarProps) {
                                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                                     }`}
                             >
-                                <span className="h-5 w-5 flex-shrink-0 text-gray-400">
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.5"
-                                        className="h-full w-full"
-                                    >
-                                        <path
-                                            d={FALLBACK_ICON}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
+                                <span className="h-5 w-5 flex-shrink-0 text-gray-400 flex items-center justify-center">
+                                    {category.icon?.asset?.url ? (
+                                        <img
+                                            src={category.icon.asset.url}
+                                            alt={`${category.title} icon`}
+                                            className="h-full w-full object-contain"
                                         />
-                                    </svg>
+                                    ) : (
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            className="h-full w-full"
+                                        >
+                                            <path
+                                                d={FALLBACK_ICON}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    )}
                                 </span>
                                 {category.title}
                             </Link>
