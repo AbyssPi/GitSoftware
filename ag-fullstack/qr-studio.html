@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate QR Graphic</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f4f4f5; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+        input { padding: 0.75rem; border: 1px solid #ccc; border-radius: 0.5rem; width: 400px; margin-bottom: 1rem; font-size: 1rem;}
+        button { background: #4f46e5; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; font-size: 1rem; font-weight: bold;}
+        button:hover { background: #4338ca; }
+        canvas { display: block; margin: 2rem auto; border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); max-width: 100%; height: auto;}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>✨ QR Code Studio</h2>
+        <p>Enter your website link below (make sure it ends in <strong>/offer</strong>).<br>For example: <em>https://your-website.vercel.app/offer</em></p>
+        <input type="text" id="url" placeholder="https://your-website.com/offer" value="https://your-website.com/offer" />
+        <br>
+        <button onclick="generate()">Generate Printable Graphic</button>
+        
+        <canvas id="canvas" width="600" height="700"></canvas>
+        <button id="downloadBtn" style="display:none; background: #10b981; margin-top: 1rem;" onclick="downloadImage()">Download PNG Photo</button>
+    </div>
+
+    <script>
+        // Polyfill for roundRect
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+          CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+            if (w < 2 * r) r = w / 2;
+            if (h < 2 * r) r = h / 2;
+            this.moveTo(x+r, y);
+            this.arcTo(x+w, y,   x+w, y+h, r);
+            this.arcTo(x+w, y+h, x,   y+h, r);
+            this.arcTo(x,   y+h, x,   y,   r);
+            this.arcTo(x,   y,   x+w, y,   r);
+            return this;
+          }
+        }
+
+        function generate() {
+            const url = document.getElementById('url').value;
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Draw background (dark violet gradient aesthetic)
+            const grd = ctx.createLinearGradient(0, 0, 0, 700);
+            grd.addColorStop(0, "#1e1b4b");
+            grd.addColorStop(1, "#312e81");
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Header Text
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 65px sans-serif';
+            ctx.fillText('30% OFF', canvas.width/2, 100);
+            
+            ctx.font = 'bold 24px sans-serif';
+            ctx.fillStyle = '#a5b4fc';
+            ctx.fillText('SCAN TO UNLOCK DISCOUNT', canvas.width/2, 150);
+
+            // Generate QR code
+            QRCode.toDataURL(url, { width: 400, margin: 2, color: { dark: '#1e1b4b', light: '#ffffff' } }, function (err, qrUrl) {
+                if (err) return console.error(err);
+                
+                const img = new Image();
+                img.onload = function() {
+                    // Draw white rounded rect behind QR
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.roundRect(canvas.width/2 - 210, 180, 420, 420, 30);
+                    ctx.fill();
+                    
+                    // Draw QR
+                    ctx.drawImage(img, canvas.width/2 - 200, 190);
+                    
+                    // Footer text
+                    ctx.fillStyle = '#818cf8';
+                    ctx.font = '18px sans-serif';
+                    ctx.fillText('Valid exclusively at our store right now.', canvas.width/2, 650);
+                    
+                    document.getElementById('downloadBtn').style.display = 'inline-block';
+                }
+                img.src = qrUrl;
+            });
+        }
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { urlFor } from '@/sanity/image';
 import type { SanityProduct } from '@/shared/types/sanity';
 
-const SELLER_WHATSAPP_NUMBER = '962770416763';
+const SELLER_WHATSAPP_NUMBER = '962771110620';
 
 interface ProductClientProps {
     product: SanityProduct;

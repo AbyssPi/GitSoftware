@@ -81,7 +81,7 @@ export default function Navbar({ variant = 'default', categories = [] }: NavbarP
                         null
                     )}
                     <a
-                        href="https://wa.me/962770416763?text=Hello,%20I%20have%20an%20inquiry%20about%20GitSoftware."
+                        href="https://wa.me/962771110620?text=Hello,%20I%20have%20an%20inquiry%20about%20GitSoftware."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="rounded-full bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
