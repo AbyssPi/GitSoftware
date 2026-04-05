@@ -22,7 +22,7 @@ export default function Footer() {
                             Terms of Service
                         </Link>
                         <a
-                            href="https://wa.me/962771110620?text=Hello,%20I%20have%20an%20inquiry%20about%20GitSoftware."
+                            href="https://wa.me/1234567890?text=Hello,%20I%20have%20an%20inquiry%20about%20GitSoftware."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-gray-500 hover:text-gray-900 transition-colors"

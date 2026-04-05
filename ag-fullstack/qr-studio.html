@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Generate QR Graphic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background-color: #f4f4f5; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
@@ -55,12 +56,8 @@
             // Draw Header Text
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
-            ctx.font = 'bold 65px sans-serif';
-            ctx.fillText('30% OFF', canvas.width/2, 100);
-            
-            ctx.font = 'bold 24px sans-serif';
-            ctx.fillStyle = '#a5b4fc';
-            ctx.fillText('SCAN TO UNLOCK DISCOUNT', canvas.width/2, 150);
+            ctx.font = 'bold 80px "Tajawal", sans-serif';
+            ctx.fillText('جرب حظك', canvas.width/2, 130);
 
             // Generate QR code
             QRCode.toDataURL(url, { width: 400, margin: 2, color: { dark: '#1e1b4b', light: '#ffffff' } }, function (err, qrUrl) {
@@ -78,9 +75,9 @@
                     ctx.drawImage(img, canvas.width/2 - 200, 190);
                     
                     // Footer text
-                    ctx.fillStyle = '#818cf8';
-                    ctx.font = '18px sans-serif';
-                    ctx.fillText('Valid exclusively at our store right now.', canvas.width/2, 650);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = '50px sans-serif';
+                    ctx.fillText('😉', canvas.width/2, 670);
                     
                     document.getElementById('downloadBtn').style.display = 'inline-block';
                 }

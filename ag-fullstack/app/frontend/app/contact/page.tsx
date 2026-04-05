@@ -2,7 +2,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 const SUPPORT_EMAIL = 'support@yourstore.com'; // Replace with actual email
-const WHATSAPP_NUMBER = '962771110620';
+const WHATSAPP_NUMBER = '1234567890';
 
 export default function ContactPage() {
     return (
